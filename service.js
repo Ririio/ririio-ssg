@@ -91,6 +91,7 @@ module.exports = {
             //replace the value of the "OUTPUT_DIRECTORY to whatever the user wants"
             let result = contents.replace(process.env.OUTPUT_DIRECTORY, str);
 
+
             fs.writeFile('./.env', result, 'utf8', function (err) {
                 if (err) return console.log(err);
              });
