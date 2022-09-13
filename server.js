@@ -65,7 +65,7 @@ const pjson = require('./package.json');
     }
     if(options.output){    
 
-        sr.replaceDirectory(options.output);
+
 
         //Prevents the user from creating a directory that currently exists within the program
         //Resets the value of the directory to 'dist'
@@ -75,6 +75,8 @@ const pjson = require('./package.json');
             sr.replaceDirectory("dist");
             return;
         }
+
+        sr.replaceDirectory(options.output);
 
         sr.createFolder(options.output);
 
