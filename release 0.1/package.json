@@ -1,0 +1,20 @@
+{
+  "name": "back-end",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "bin": {
+    "my-ssg": "./server.js"
+  },
+  "author": "Mario Leonardo",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^9.4.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
+  }
+}
