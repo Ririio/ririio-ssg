@@ -87,8 +87,6 @@ module.exports = {
                 console.log(err);
                 return;
             }
-
-            console.log(str);
             //replace the value of the "OUTPUT_DIRECTORY to whatever the user wants"
             let result = contents.replace(process.env.OUTPUT_DIRECTORY, str);
 
