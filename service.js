@@ -43,7 +43,6 @@ module.exports = {
           }
         }
       }
-
       {
         //Opening the file and add all of the array values line by line
         let file = fs.createWriteStream(
@@ -58,9 +57,13 @@ module.exports = {
         file.on("error", function (err) {
           /* error handling */
         });
-        array.forEach(function (v) {
-          file.write(Array.from(array).join("\n") + "\n");
-        });
+
+        // array.forEach(function (v) {
+        //   file.write(Array.from(array).join("\n") + "\n");
+        // });
+
+        file.write(Array.from(array).join("\n") + "\n");
+
         file.write("</body>\n</html>");
         file.end();
       }
