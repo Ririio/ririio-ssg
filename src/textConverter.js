@@ -2,7 +2,6 @@ const fs = require("fs");
 
 const textConverter = (filename) => {
   const array = fs.readFileSync(filename).toString().split(/\r?\n/);
-  // let array = fs.readFileSync(path.resolve(__dirname + "/" + filename)).toString().split("\n");
 
   if (!filename.includes(".txt"))
     throw new Error("The file provided is not a text file");
@@ -17,7 +16,7 @@ const textConverter = (filename) => {
   let storyTitle;
 
   // Used to check if the 2nd and 3rd index contains a value to determine whether the first line is a title
-  if (array[1].trim().length === 0 && array[2].trim().length === 0) {
+  if (!array[1].trim().length && !array[2].trim()) {
     [storyTitle] = array;
     array[0] = `<h1>${array[0]}</h1>`;
     isValidTitle = true;
@@ -38,30 +37,22 @@ const textConverter = (filename) => {
       }
     }
   }
-  {
-    // Opening the file and add all of the array values line by line
-    const file = fs.createWriteStream(
-      `./${process.env.OUTPUT_DIRECTORY}/${result}`
-    );
 
-    file.write(
-      `<!doctype html>\n<html lang="en">\n\n<head>\n\t<meta charset="utf-8">\n\t<title>${
-        isValidTitle ? storyTitle : "FileName"
-      }</title>\n\t<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n\n`
-    );
-    file.on("error", () => {
-      /* error handling */
-    });
+  // Opening the file and add all of the array values line by line
+  const file = fs.createWriteStream(
+    `./${process.env.OUTPUT_DIRECTORY}/${result}`
+  );
 
-    // array.forEach(function (v) {
-    //   file.write(Array.from(array).join("\n") + "\n");
-    // });
+  file.write(
+    `<!doctype html>\n<html lang="en">\n\n<head>\n\t<meta charset="utf-8">\n\t<title>${
+      isValidTitle ? storyTitle : "FileName"
+    }</title>\n\t<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n\n`
+  );
 
-    file.write(array.join("\n"));
+  file.write(array.join("\n"));
 
-    file.write("\n</body>\n</html>");
-    file.end();
-  }
+  file.write("\n</body>\n</html>");
+  file.end();
 };
 
 module.exports = textConverter;
