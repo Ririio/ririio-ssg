@@ -1,6 +1,6 @@
 # About The Project
 
-The project allows for the converstion of .txt files to a formatted HTML5
+The project allows for the converstion of .txt and .md files to a formatted HTML5
 
 ### Built With
 
@@ -24,7 +24,7 @@ Write "my-ssg" before using any commands or it will not work
 
 **Input** (--input, -I)
 <br />
-&nbsp;&nbsp;This command will allow the user to be able to convert a .txt file to that of an HTML5.
+&nbsp;&nbsp;This command will allow the user to be able to convert a .txt or .md file to that of an HTML5.
 <br />
 **Command Structure**: "my-ssg --input [fileName/directoryName]"
 <br />
