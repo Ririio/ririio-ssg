@@ -24,6 +24,9 @@ const processLine = (line) => {
     (match, label, url) => `<a href="${encodeURI(url)}">${label}</a>`
   );
 
+  // horizontal line
+  result = result.replaceAll(/-{3,}/g, () => "<hr>");
+
   return result;
 };
 
