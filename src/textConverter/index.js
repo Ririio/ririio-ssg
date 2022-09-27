@@ -25,7 +25,9 @@ const textConverter = (inputFilepath) => {
   );
 
   file.write(
-    `<!doctype html>\n<html lang="en">\n\n<head>\n\t<meta charset="utf-8">\n\t<title>${
+    `<!doctype html>\n<html lang="${
+      process.env.HTML_LANGUAGE
+    }">\n\n<head>\n\t<meta charset="utf-8">\n\t<title>${
       storyTitle || "FileName"
     }</title>\n\t<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n\n`
   );

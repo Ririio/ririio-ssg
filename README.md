@@ -36,6 +36,13 @@ Write "my-ssg" before using any commands or it will not work
 **Command Structure**: my-ssg --output [directoryName] | my-ssg --output [directoryName] --input [filename]
 <br />
 <br />
+**Language** (--lang, -L)
+<br />
+&nbsp;&nbsp;This command changes the default html language for the conversion
+<br />
+**Command Structure**: "my-ssg --lang [language]"
+<br />
+<br />
 **Help** (--help, -H)
 <br />
 &nbsp;&nbsp;This command will display the description of the program and all its available command and their respective descriptions
@@ -58,6 +65,7 @@ Write "my-ssg" before using any commands or it will not work
 - [ ] Allow for multi-level directory conversion
 - [ ] Generate an index.js which contains all links to the HTML files within a directory
 - [ ] Stylized each Generated HTML page
+- [x] Add Language Command
 
 <br />
 

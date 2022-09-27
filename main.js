@@ -17,7 +17,11 @@ program
   .description("Program Custom Flags")
   .option("-H, --help")
   .option(`-I, --input <type>`, "Input to the dist folder")
-  .option(`-O, --output <type>`, "Output to a custom folder");
+  .option(`-O, --output <type>`, "Output to a custom folder")
+  .option(
+    `-L, --lang <type>`,
+    "Changes generated lang attributes on the html root"
+  );
 
 program.parse();
 
@@ -35,6 +39,9 @@ if (options.help) {
   );
   console.log(
     "Input: By typing 'my-ssg --input(or)-I file.txt' the program will generate a valid HTML5 file\n"
+  );
+  console.log(
+    "Lang: By typing 'my-ssg --lang(or)-L <language> the program will add a 'lang' attribute on the root html"
   );
 }
 try {
@@ -72,6 +79,9 @@ try {
     sr.replaceDirectory(options.output);
 
     sr.createFolder(options.output);
+  }
+  if (options.lang) {
+    sr.changeLanguage(options.lang);
   }
 } catch (err) {
   console.error(err.message);
