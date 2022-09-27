@@ -58,6 +58,10 @@ Write "my-ssg" before using any commands or it will not work
 - [ ] Allow for multi-level directory conversion
 - [ ] Generate an index.js which contains all links to the HTML files within a directory
 - [ ] Stylized each Generated HTML page
+<<<<<<< HEAD
+=======
+- [x] Add Language Command
+>>>>>>> 7b62708eb7b2d10f174df447e33d0cf2cd7530c3
 
 <br />
 
