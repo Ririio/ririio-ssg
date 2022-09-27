@@ -2,14 +2,14 @@
   "name": "ririio-ssg",
   "version": "0.1.0",
   "description": "",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node main.js",
     "lint": "eslint --fix **/*.js --fix-type problem"
   },
   "bin": {
-    "my-ssg": "./server.js"
+    "my-ssg": "./main.js"
   },
   "author": "Mario Leonardo",
   "license": "Apache-2.0",

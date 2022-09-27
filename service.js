@@ -23,7 +23,9 @@ module.exports = {
       // replace the value of the "OUTPUT_DIRECTORY to whatever the user wants"
       const result = contents.replace(process.env.OUTPUT_DIRECTORY, str);
 
-      fs.writeFile("./.env", result, "utf8");
+      fs.writeFile("./.env", result, "utf-8", () => {
+        console.log(`Renamed "dist" to "${str}"`);
+      });
     });
   },
 };
