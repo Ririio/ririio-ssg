@@ -28,18 +28,4 @@ module.exports = {
       });
     });
   },
-  changeLanguage: (str) => {
-    fs.readFile("./.env", "utf-8", (err, contents) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-
-      const result = contents.replace(process.env.HTML_LANGUAGE, str);
-
-      fs.writeFile("./.env", result, "utf-8", () => {
-        console.log(`Replaced current language to "${str}`);
-      });
-    });
-  },
 };
