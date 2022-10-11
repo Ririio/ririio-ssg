@@ -92,7 +92,26 @@ try {
   if (options.config) {
     const lines = fs.readFileSync(options.config, "utf8");
     parsedObj = JSON.parse(lines);
-    console.log(parsedObj);
+
+    sr.createFolder(outputFolder);
+
+    const stats = fs.statSync(parsedObj.input);
+
+    // Determines whether the value that was given is a directory or a file
+    if (stats.isDirectory()) {
+      const directoryName = parsedObj.input;
+
+      // read the directory, and go through  each individual file name using forEach
+      fs.readdir(directoryName, (err, files) => {
+        files.forEach((file) => {
+          const filename = `${directoryName}/${file}`;
+          textConverter(filename);
+        });
+      });
+    } else if (stats.isFile()) {
+      const filename = parsedObj.input;
+      textConverter(filename);
+    }
   }
 } catch (err) {
   console.error(err.message);
