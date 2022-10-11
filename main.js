@@ -92,8 +92,24 @@ try {
   if (options.config) {
     const lines = fs.readFileSync(options.config, "utf8");
     parsedObj = JSON.parse(lines);
+    console.log(parsedObj);
 
-    sr.createFolder(outputFolder);
+    if (parsedObj.output) {
+      if (fs.existsSync(parsedObj.output)) {
+        console.log("The name given already exists as a directory or file");
+        console.log("Set directory to default: 'dist'");
+        sr.replaceDirectory("dist");
+        process.exit();
+      }
+
+      sr.replaceDirectory(parsedObj.output);
+
+      sr.createFolder(parsedObj.output);
+    }
+
+    if (!parsedObj.output) {
+      sr.createFolder(outputFolder);
+    }
 
     const stats = fs.statSync(parsedObj.input);
 
