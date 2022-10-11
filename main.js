@@ -92,7 +92,6 @@ try {
   if (options.config) {
     const lines = fs.readFileSync(options.config, "utf8");
     parsedObj = JSON.parse(lines);
-    console.log(parsedObj);
 
     if (parsedObj.output) {
       if (fs.existsSync(parsedObj.output)) {
