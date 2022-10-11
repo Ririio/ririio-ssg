@@ -5,7 +5,7 @@ const { program } = require("commander");
 const fs = require("fs");
 const sr = require("./service");
 const pjson = require("./package.json");
-const textConverter = require("./src/textConverter");
+const { textConverter } = require("./src/text-converter");
 
 // For adding custom flags into the command line
 
@@ -46,6 +46,7 @@ if (options.help) {
 }
 try {
   if (options.input) {
+    fs.rmSync(outputFolder, { recursive: true, force: true });
     sr.createFolder(outputFolder);
 
     const stats = fs.statSync(program.opts().input);
@@ -70,15 +71,12 @@ try {
     // Prevents the user from creating a directory that currently exists within the program
     // Resets the value of the directory to 'dist'
     if (fs.existsSync(options.output)) {
-      console.log("The name given already exists as a directory or file");
-      console.log("Set directory to default: 'dist'");
+      console.log(
+        "The name given already exists as a directory or file",
+        "\nSet directory to default: 'dist'"
+      );
       sr.replaceDirectory("dist");
-      process.exit();
-    }
-
-    sr.replaceDirectory(options.output);
-
-    sr.createFolder(options.output);
+    } else sr.replaceDirectory(options.output);
   }
   if (options.lang) {
     sr.changeLanguage(options.lang);

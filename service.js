@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { readFileEnv } = require("./src/text-converter");
 const fs = require("fs");
 
 module.exports = {
@@ -15,31 +16,9 @@ module.exports = {
     }
   },
   replaceDirectory: (str) => {
-    fs.readFile("./.env", "utf-8", (err, contents) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      // replace the value of the "OUTPUT_DIRECTORY to whatever the user wants"
-      const result = contents.replace(process.env.OUTPUT_DIRECTORY, str);
-
-      fs.writeFile("./.env", result, "utf-8", () => {
-        console.log(`Renamed "dist" to "${str}"`);
-      });
-    });
+    readFileEnv("OUTPUT_DIRECTORY", "Renamed output directory to", str);
   },
   changeLanguage: (str) => {
-    fs.readFile("./.env", "utf-8", (err, contents) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-
-      const result = contents.replace(process.env.HTML_LANGUAGE, str);
-
-      fs.writeFile("./.env", result, "utf-8", () => {
-        console.log(`Replaced current language to "${str}`);
-      });
-    });
+    readFileEnv("HTML_LANGUAGE", "Replaced current language to", str);
   },
 };
