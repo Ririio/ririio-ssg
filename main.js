@@ -13,10 +13,16 @@ program.version(`${pjson.name}: version-${pjson.version}`);
 
 const outputFolder = process.env.OUTPUT_DIRECTORY;
 
+let parsedObj;
+
 program
   .description("Program Custom Flags")
   .option("-H, --help")
   .option(`-I, --input <type>`, "Input to the dist folder")
+  .option(
+    `-C, --config <type>`,
+    "Output to the folder specified in config file"
+  )
   .option(`-O, --output <type>`, "Output to a custom folder")
   .option(
     `-L, --lang <type>`,
@@ -82,6 +88,11 @@ try {
   }
   if (options.lang) {
     sr.changeLanguage(options.lang);
+  }
+  if (options.config) {
+    const lines = fs.readFileSync(options.config, "utf8");
+    parsedObj = JSON.parse(lines);
+    console.log(parsedObj);
   }
 } catch (err) {
   console.error(err.message);
