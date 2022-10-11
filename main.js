@@ -111,6 +111,10 @@ try {
       sr.createFolder(outputFolder);
     }
 
+    if (parsedObj.lang) {
+      sr.changeLanguage(parsedObj.lang);
+    }
+
     const stats = fs.statSync(parsedObj.input);
 
     // Determines whether the value that was given is a directory or a file
