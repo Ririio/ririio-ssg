@@ -13,8 +13,6 @@ program.version(`${pjson.name}: version-${pjson.version}`);
 
 const outputFolder = process.env.OUTPUT_DIRECTORY;
 
-let parsedObj;
-
 program
   .description("Program Custom Flags")
   .option("-H, --help")
@@ -45,6 +43,9 @@ if (options.help) {
   );
   console.log(
     "Input: By typing 'my-ssg --input(or)-I file.txt' the program will generate a valid HTML5 file\n"
+  );
+  console.log(
+    "Config: By typing 'my-ssg --config(or)-C file.json' the program will generate a valid HTML5 file based on configuration specified\n"
   );
   console.log(
     "Lang: By typing 'my-ssg --lang(or)-L <language> the program will add a 'lang' attribute on the root html"
@@ -89,27 +90,26 @@ try {
   }
   if (options.config) {
     const lines = fs.readFileSync(options.config, "utf8");
-    parsedObj = JSON.parse(lines);
+    const parsedObj = JSON.parse(lines);
+
+    if (parsedObj.lang) {
+      sr.changeLanguage(parsedObj.lang);
+    }
 
     if (parsedObj.output) {
       if (fs.existsSync(parsedObj.output)) {
         console.log("The name given already exists as a directory or file");
         console.log("Set directory to default: 'dist'");
         sr.replaceDirectory("dist");
-        process.exit();
       }
-
       sr.replaceDirectory(parsedObj.output);
-
-      sr.createFolder(parsedObj.output);
-    }
-
-    if (!parsedObj.output) {
+      fs.rmSync(outputFolder, { recursive: true, force: true });
       sr.createFolder(outputFolder);
     }
 
-    if (parsedObj.lang) {
-      sr.changeLanguage(parsedObj.lang);
+    if (!parsedObj.output) {
+      fs.rmSync(outputFolder, { recursive: true, force: true });
+      sr.createFolder(outputFolder);
     }
 
     const stats = fs.statSync(parsedObj.input);
