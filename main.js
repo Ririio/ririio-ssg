@@ -17,6 +17,10 @@ program
   .description("Program Custom Flags")
   .option("-H, --help")
   .option(`-I, --input <type>`, "Input to the dist folder")
+  .option(
+    `-C, --config <type>`,
+    "Output to the folder specified in config file"
+  )
   .option(`-O, --output <type>`, "Output to a custom folder")
   .option(
     `-L, --lang <type>`,
@@ -39,6 +43,9 @@ if (options.help) {
   );
   console.log(
     "Input: By typing 'my-ssg --input(or)-I file.txt' the program will generate a valid HTML5 file\n"
+  );
+  console.log(
+    "Config: By typing 'my-ssg --config(or)-C file.json' the program will generate a valid HTML5 file based on configuration specified\n"
   );
   console.log(
     "Lang: By typing 'my-ssg --lang(or)-L <language> the program will add a 'lang' attribute on the root html"
@@ -80,6 +87,48 @@ try {
   }
   if (options.lang) {
     sr.changeLanguage(options.lang);
+  }
+  if (options.config) {
+    const lines = fs.readFileSync(options.config, "utf8");
+    const parsedObj = JSON.parse(lines);
+
+    if (parsedObj.lang) {
+      sr.changeLanguage(parsedObj.lang);
+    }
+
+    if (parsedObj.output) {
+      if (fs.existsSync(parsedObj.output)) {
+        console.log("The name given already exists as a directory or file");
+        console.log("Set directory to default: 'dist'");
+        sr.replaceDirectory("dist");
+      }
+      sr.replaceDirectory(parsedObj.output);
+      fs.rmSync(outputFolder, { recursive: true, force: true });
+      sr.createFolder(outputFolder);
+    }
+
+    if (!parsedObj.output) {
+      fs.rmSync(outputFolder, { recursive: true, force: true });
+      sr.createFolder(outputFolder);
+    }
+
+    const stats = fs.statSync(parsedObj.input);
+
+    // Determines whether the value that was given is a directory or a file
+    if (stats.isDirectory()) {
+      const directoryName = parsedObj.input;
+
+      // read the directory, and go through  each individual file name using forEach
+      fs.readdir(directoryName, (err, files) => {
+        files.forEach((file) => {
+          const filename = `${directoryName}/${file}`;
+          textConverter(filename);
+        });
+      });
+    } else if (stats.isFile()) {
+      const filename = parsedObj.input;
+      textConverter(filename);
+    }
   }
 } catch (err) {
   console.error(err.message);

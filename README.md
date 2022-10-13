@@ -29,6 +29,12 @@ Write "my-ssg" before using any commands or it will not work
 **Command Structure**: "my-ssg --input [fileName/directoryName]"
 <br />
 <br />
+**Config** (--config, -C)
+<br />
+&nbsp;&nbsp;This command will allow the user to be able to pass a .json file with supported configuration keys such as input, output, and lang. The command will then be able to convert .txt or .md files specified in the input property to that of an HTML5. The output directory by default is dist, but if output key is defined in config file, the command will replace the default directory with the value of output key.
+<br />
+**Command Structure**: "my-ssg --config [fileName]"
+<br />
 **Output** (--output, -O)
 <br />
 &nbsp;&nbsp;This command will allow the user to change to create their own default folder for all the HTML5 that they convert.
@@ -58,10 +64,10 @@ Write "my-ssg" before using any commands or it will not work
 - [ ] Allow for multi-level directory conversion
 - [ ] Generate an index.js which contains all links to the HTML files within a directory
 - [ ] Stylized each Generated HTML page
-<<<<<<< HEAD
-=======
+      <<<<<<< HEAD
+      =======
 - [x] Add Language Command
->>>>>>> 7b62708eb7b2d10f174df447e33d0cf2cd7530c3
+  > > > > > > > 7b62708eb7b2d10f174df447e33d0cf2cd7530c3
 
 <br />
 

@@ -40,22 +40,13 @@ module.exports = {
   },
   //Lab 3: Created a function to prevent repetition when changing key-pair values
   readFileEnv: (key, msg, str) => {
-    let result;
+    let result = fs.readFileSync("./.env", { encoding: "utf8", flag: "r" });
 
-    fs.readFile("./.env", "utf-8", (err, contents) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      if (key == "HTML_LANGUAGE")
-        result = contents.replace(process.env.HTML_LANGUAGE, str);
-      else if (key == "OUTPUT_DIRECTORY")
-        result = contents.replace(process.env.OUTPUT_DIRECTORY, str);
-
-      fs.writeFile("./.env", result, "utf-8", () => {
-        console.log(`${msg} "${str}"`);
-      });
-    });
+    if (key == "HTML_LANGUAGE")
+      result = result.replace(process.env.HTML_LANGUAGE, str);
+    else if (key == "OUTPUT_DIRECTORY")
+      result = result.replace(process.env.OUTPUT_DIRECTORY, str);
+    fs.writeFileSync("./.env", result);
   },
 };
 
