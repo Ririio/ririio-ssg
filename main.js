@@ -5,7 +5,11 @@ const { program } = require("commander");
 const fs = require("fs");
 const sr = require("./service");
 const pjson = require("./package.json");
-const { textConverter } = require("./src/text-converter");
+const {
+  textConverter,
+  createIndexFile,
+  convertExtension,
+} = require("./src/text-converter");
 
 // For adding custom flags into the command line
 
@@ -67,14 +71,10 @@ try {
         let navLinks;
 
         files.forEach((file) => {
-          const outputFileName = file
-            .substring(file.lastIndexOf("/") + 1)
-            .replace(/\.(txt|md)$/, ".html");
+          const outputFileName = convertExtension(file);
 
-          if (navLinks) navLinks += outputFileName + ",";
-          else navLinks = outputFileName + ",";
-
-          sr.createIndexFile(outputFolder, navLinks);
+          if (navLinks) navLinks += "," + outputFileName;
+          else navLinks = outputFileName;
         });
 
         files.forEach((file) => {
@@ -82,6 +82,8 @@ try {
 
           textConverter(filename, navLinks);
         });
+
+        createIndexFile(outputFolder, navLinks);
       });
     } else if (stats.isFile()) {
       const filename = program.opts().input;
