@@ -64,9 +64,23 @@ try {
 
       // read the directory, and go through  each individual file name using forEach
       fs.readdir(directoryName, (err, files) => {
+        let navLinks;
+
+        files.forEach((file) => {
+          const outputFileName = file
+            .substring(file.lastIndexOf("/") + 1)
+            .replace(/\.(txt|md)$/, ".html");
+
+          if (navLinks) navLinks += outputFileName + ",";
+          else navLinks = outputFileName + ",";
+
+          sr.createIndexFile(outputFolder, navLinks);
+        });
+
         files.forEach((file) => {
           const filename = `${directoryName}/${file}`;
-          textConverter(filename);
+
+          textConverter(filename, navLinks);
         });
       });
     } else if (stats.isFile()) {

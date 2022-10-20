@@ -3,9 +3,10 @@ const txtConverter = require("./txtConverter");
 const mdConverter = require("./mdConverted");
 
 module.exports = {
-  textConverter: (inputFilepath) => {
+  textConverter: (inputFilepath, navLinks) => {
     let result;
     let storyTitle;
+    let linksArr = navLinks.split(",");
 
     if (inputFilepath.endsWith(".txt")) {
       ({ result, storyTitle } = txtConverter(inputFilepath));
@@ -28,10 +29,12 @@ module.exports = {
     file.write(
       `<!doctype html>\n<html lang="${
         process.env.HTML_LANGUAGE
-      }">\n\n<head>\n\t<meta charset="utf-8">\n\t<title>${
+      }">\n\n<head>\n\t<meta charset="utf-8">\n\t<link rel="stylesheet" type="text/css" href="../src/utils/nav.css"><title>${
         storyTitle || "FileName"
       }</title>\n\t<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n\n`
     );
+
+    module.exports.createNavBarDiv(linksArr, file);
 
     file.write(result);
 
@@ -47,6 +50,16 @@ module.exports = {
     else if (key == "OUTPUT_DIRECTORY")
       result = result.replace(process.env.OUTPUT_DIRECTORY, str);
     fs.writeFileSync("./.env", result);
+
+    console.log(msg + " " + str);
+  },
+  createNavBarDiv: (arr, file) => {
+    file.write('<div class="sidenav">');
+    arr.forEach((link) => {
+      let name = link.substring(0, link.lastIndexOf(".") || filename);
+      if (link) file.write(`\t<a href="${link}"> ${name} </a>\n\t<br/><hr />`);
+    });
+    file.write("\t</div>");
   },
 };
 
