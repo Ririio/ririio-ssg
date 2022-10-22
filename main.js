@@ -113,37 +113,50 @@ try {
     }
 
     if (parsedObj.output) {
+      // Prevents the user from creating a directory that currently exists within the program
+      // Resets the value of the directory to 'dist'
       if (fs.existsSync(parsedObj.output)) {
-        console.log("The name given already exists as a directory or file");
-        console.log("Set directory to default: 'dist'");
+        console.log(
+          "The name given already exists as a directory or file",
+          "\nSet directory to default: 'dist'"
+        );
         sr.replaceDirectory("dist");
-      }
-      sr.replaceDirectory(parsedObj.output);
-      fs.rmSync(outputFolder, { recursive: true, force: true });
-      sr.createFolder(outputFolder);
+      } else sr.replaceDirectory(parsedObj.output);
     }
 
-    if (!parsedObj.output) {
+    if (parsedObj.input) {
       fs.rmSync(outputFolder, { recursive: true, force: true });
       sr.createFolder(outputFolder);
-    }
 
-    const stats = fs.statSync(parsedObj.input);
+      const stats = fs.statSync(parsedObj.input);
 
-    // Determines whether the value that was given is a directory or a file
-    if (stats.isDirectory()) {
-      const directoryName = parsedObj.input;
+      // Determines whether the value that was given is a directory or a file
+      if (stats.isDirectory()) {
+        const directoryName = parsedObj.input;
 
-      // read the directory, and go through  each individual file name using forEach
-      fs.readdir(directoryName, (err, files) => {
-        files.forEach((file) => {
-          const filename = `${directoryName}/${file}`;
-          textConverter(filename);
+        // read the directory, and go through  each individual file name using forEach
+        fs.readdir(directoryName, (err, files) => {
+          let navLinks;
+
+          files.forEach((file) => {
+            const outputFileName = convertExtension(file);
+
+            if (navLinks) navLinks += "," + outputFileName;
+            else navLinks = outputFileName;
+          });
+
+          files.forEach((file) => {
+            const filename = `${directoryName}/${file}`;
+
+            textConverter(filename, navLinks);
+          });
+
+          createIndexFile(outputFolder, navLinks);
         });
-      });
-    } else if (stats.isFile()) {
-      const filename = parsedObj.input;
-      textConverter(filename);
+      } else if (stats.isFile()) {
+        const filename = parsedObj.input;
+        textConverter(filename);
+      }
     }
   }
 } catch (err) {
