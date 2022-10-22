@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { readFileEnv, createNavBarDiv } = require("./src/text-converter");
+const { readFileEnv } = require("./src/text-converter");
 const fs = require("fs");
 
 module.exports = {

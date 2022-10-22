@@ -37,40 +37,12 @@ module.exports = {
       <title>${
         storyTitle || "FileName"
       }</title>\n\t<meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body>\n\n
-      ${navLinks ? module.exports.createNavBarDiv(linksArr, file) : ""}`
+      ${navLinks ? module.exports.createNavBarDiv(linksArr, file) : ""}
+      ${result}\n</body>\n</html>
+      `
     );
 
-    file.write(result);
-
-    file.write("\n</body>\n</html>");
     file.end();
-  },
-  //Lab 3: Created a function to prevent repetition when changing key-pair values
-  readFileEnv: (key, msg, str) => {
-    let result = fs.readFileSync("./.env", { encoding: "utf8", flag: "r" });
-
-    if (key == "HTML_LANGUAGE")
-      result = result.replace(process.env.HTML_LANGUAGE, str);
-    else if (key == "OUTPUT_DIRECTORY")
-      result = result.replace(process.env.OUTPUT_DIRECTORY, str);
-    fs.writeFileSync("./.env", result);
-
-    console.log(msg + " " + str);
-  },
-  createNavBarDiv: (arr, file) => {
-    // file.write('<div class="sidenav">');
-
-    let str = '<div class="sidenav">';
-    let i = 0;
-
-    arr.forEach((link) => {
-      let name = link.substring(0, link.lastIndexOf(".") || filename);
-      if (link) str += `<a href="${link}"> ${name} </a>`;
-    });
-
-    // file.write("</div>");
-    str += "</div>";
-    return str;
   },
   createIndexFile: (outputFolder, fileLinks) => {
     const file = fs.createWriteStream(`./${outputFolder}/index.html`);
@@ -86,17 +58,39 @@ module.exports = {
       </head>\n
 
       <body>
-      ${module.exports.createNavBarDiv(linksArr, file)}
-
+      ${module.exports.createNavBarDiv(linksArr)}
+      </body>
       `
     );
     file.end();
+  },
+  createNavBarDiv: (arr) => {
+    let str = '<div class="sidenav">';
+
+    arr.forEach((link) => {
+      let name = link.substring(0, link.lastIndexOf(".") || filename);
+      if (link) str += `<a href="${link}"> ${name} </a><hr />`;
+    });
+    str += "</div>";
+    return str;
   },
   convertExtension: (str) => {
     const outputFileName = str
       .substring(str.lastIndexOf("/") + 1)
       .replace(/\.(txt|md)$/, ".html");
     return outputFileName;
+  },
+  //Lab 3: Created a function to prevent repetition when changing key-pair values
+  readFileEnv: (key, msg, str) => {
+    let result = fs.readFileSync("./.env", { encoding: "utf8", flag: "r" });
+
+    if (key == "HTML_LANGUAGE")
+      result = result.replace(process.env.HTML_LANGUAGE, str);
+    else if (key == "OUTPUT_DIRECTORY")
+      result = result.replace(process.env.OUTPUT_DIRECTORY, str);
+    fs.writeFileSync("./.env", result);
+
+    console.log(msg + " " + str);
   },
 };
 
