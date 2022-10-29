@@ -2,59 +2,16 @@
 
 The project allows for the converstion of .txt and .md files to a formatted HTML5
 
-### Built With
-
-- [Express](https://expressjs.com/)
-- [Commander](https://www.npmjs.com/package/commander)
-- [Dotenv](https://www.npmjs.com/package/dotenv)
-
 ## Getting Started
 
-### Installation
-
-1. Change the current directory to "release 0.1"
-2. Type "npm install" in the command line to download all necessary libraries
-3. Type "npm link" to allow for "my-ssg" to function
-
-The program should now allow you to use all commands without any problems
-
 ### Commands
-
-Write "my-ssg" before using any commands or it will not work
-
-**Input** (--input, -I)
-<br />
-&nbsp;&nbsp;This command will allow the user to be able to convert a .txt or .md file to that of an HTML5.
-<br />
-**Command Structure**: "my-ssg --input [fileName/directoryName]"
-<br />
-<br />
-**Config** (--config, -C)
-<br />
-&nbsp;&nbsp;This command will allow the user to be able to pass a .json file with supported configuration keys such as input, output, and lang. The command will then be able to convert .txt or .md files specified in the input property to that of an HTML5. The output directory by default is dist, but if output key is defined in config file, the command will replace the default directory with the value of output key.
-<br />
-**Command Structure**: "my-ssg --config [fileName]"
-<br />
-**Output** (--output, -O)
-<br />
-&nbsp;&nbsp;This command will allow the user to change to create their own default folder for all the HTML5 that they convert.
-<br />
-**Command Structure**: my-ssg --output [directoryName] | my-ssg --output [directoryName] --input [filename]
-<br />
-<br />
-**Help** (--help, -H)
-<br />
-&nbsp;&nbsp;This command will display the description of the program and all its available command and their respective descriptions
-<br />
-**Command Structure**: "my-ssg --help"
-<br />
-<br />
-**Version** (--version, -V)
-<br />
-&nbsp;&nbsp;This command displays the current version of the program
-<br />
-**Command Structure**: "my-ssg --version"
-<br />
+| Command Name  | Command Line | Description | Command Structure | 
+|---|---|---|---|
+| **Input** | (--input, -I) | This command will allow the user to be able to convert a .txt or .md file to that of an HTML5. | my-ssg --input [fileName/directoryName] |
+| Config | (--config, -C) | This command will allow the user to be able to pass a .json file with supported configuration keys such as input, output, and lang. The command will then be able to convert .txt or .md files specified in the input property to that of an HTML5. The output directory by default is dist, but if output key is defined in config file, the command will replace the default directory with the value of output key | my-ssg --config [fileName] |
+| Output | (--output, -O) | This command will allow the user to change to create their own default folder for all the HTML5 that they convert | my-ssg --output [directoryName] | my-ssg --output [directoryName] --input [filename] |
+| Help | (--help, -H) | This command will display the description of the program and all its available command and their respective descriptions | my-ssg --help
+| Version | (--version, -V) | This command displays the current version of the program | my-ssg --version |
 
 ## Roadmap
 
