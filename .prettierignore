@@ -1,1 +1,5 @@
-/text-files/**
+/text-files
+/dist
+*.md
+.eslintrc.js
+

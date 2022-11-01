@@ -1,6 +1,6 @@
-const fs = require("fs");
-const txtConverter = require("./txtConverter");
-const mdConverter = require("./mdConverted");
+const fs = require('fs')
+const txtConverter = require('./txtConverter')
+const mdConverter = require('./mdConverted')
 
 module.exports = {
   style: `
@@ -88,36 +88,38 @@ module.exports = {
     </script>
   `,
   textConverter: (inputFilepath, navLinks) => {
-    let result;
-    let storyTitle;
-    let linksArr;
+    let result
+    let storyTitle
+    let linksArr
 
-    if (navLinks) linksArr = navLinks.split(",");
+    if (navLinks) {
+      linksArr = navLinks.split(',')
+    }
 
-    if (inputFilepath.endsWith(".txt")) {
-      ({ result, storyTitle } = txtConverter(inputFilepath));
-    } else if (inputFilepath.endsWith(".md")) {
-      ({ result, storyTitle } = mdConverter(inputFilepath));
+    if (inputFilepath.endsWith('.txt')) {
+      ;({ result, storyTitle } = txtConverter(inputFilepath))
+    } else if (inputFilepath.endsWith('.md')) {
+      ;({ result, storyTitle } = mdConverter(inputFilepath))
     } else {
-      throw new Error("The file provided is not a txt or md file");
+      throw new Error('The file provided is not a txt or md file')
     }
 
     // Used to only keep the file name that is needed when the file are under a directories
-    const outputFileName = module.exports.convertExtension(inputFilepath);
+    const outputFileName = module.exports.convertExtension(inputFilepath)
 
     // Opening the file and add all of the array values line by line
     const file = fs.createWriteStream(
       `./${process.env.OUTPUT_DIRECTORY}/${outputFileName}`
-    );
+    )
 
     file.write(
       `<!doctype html>\n<html lang="${
         process.env.HTML_LANGUAGE
       }">\n\n<head>\n\t<meta charset="utf-8">\n\t${
-        navLinks ? module.exports.style : ""
+        navLinks ? module.exports.style : ''
       }
       <title>${
-        storyTitle || "FileName"
+        storyTitle || 'FileName'
       }</title>\n\t<meta name="viewport" content="width=device-width, initial-scale=1">\n
       
       ${module.exports.script}
@@ -126,17 +128,17 @@ module.exports = {
 
       </head>\n<body>\n\n
       ${
-        navLinks ? module.exports.createNavBarDiv(linksArr, file) : ""
+        navLinks ? module.exports.createNavBarDiv(linksArr, file) : ''
       }<div class="text">
       ${result}</div>\n</body>\n</html>
       `
-    );
+    )
 
-    file.end();
+    file.end()
   },
   createIndexFile: (outputFolder, fileLinks) => {
-    const file = fs.createWriteStream(`./${outputFolder}/index.html`);
-    let linksArr = fileLinks.split(",");
+    const file = fs.createWriteStream(`./${outputFolder}/index.html`)
+    const linksArr = fileLinks.split(',')
 
     file.write(
       `<!doctype html>\n
@@ -179,50 +181,52 @@ module.exports = {
         </div>
       </body>
       `
-    );
-    file.end();
+    )
+    file.end()
   },
   createNavBarDiv: (arr) => {
-    //Added a parameter for the hiddenButton for when I want to add a new category for the sidebar
+    // Added a parameter for the hiddenButton for when I want to add a new category for the sidebar
     let str = `<div class="sidenav">
     <nav><p class="categoryTitle"><a href="index.html">Home</a></p></nav>
-    <nav><p class="categoryTitle" onclick="hideButton('indexList')">Stories</p><ul id="indexList">`;
+    <nav><p class="categoryTitle" onclick="hideButton('indexList')">Stories</p><ul id="indexList">`
 
     arr.forEach((link) => {
-      let name = link.substring(0, link.lastIndexOf(".") || filename);
-      if (link) str += `<a href="${link}"> ${name} </a><hr />`;
-    });
-    str += "</ul></nav></div>";
-    return str;
+      const name = link.substring(0, link.lastIndexOf('.'))
+      if (link) {
+        str += `<a href="${link}"> ${name} </a><hr />`
+      }
+    })
+    str += '</ul></nav></div>'
+    return str
   },
   createCard: (arr) => {
-    let str = "";
+    let str = ''
 
     arr.forEach((link) => {
-      let name = link.substring(0, link.lastIndexOf(".") || filename);
-      if (link)
-        str += `<a class='card' href="${link}"> <h1><b>${name}</b></h1> </a><hr />`;
-    });
-    return str;
+      const name = link.substring(0, link.lastIndexOf('.'))
+      if (link) {
+        str += `<a class='card' href="${link}"> <h1><b>${name}</b></h1> </a><hr />`
+      }
+    })
+    return str
   },
   convertExtension: (str) => {
     const outputFileName = str
-      .substring(str.lastIndexOf("/") + 1)
-      .replace(/\.(txt|md)$/, ".html");
-    return outputFileName;
+      .substring(str.lastIndexOf('/') + 1)
+      .replace(/\.(txt|md)$/, '.html')
+    return outputFileName
   },
-  //Lab 3: Created a function to prevent repetition when changing key-pair values
+  // Lab 3: Created a function to prevent repetition when changing key-pair values
   readFileEnv: (key, msg, str) => {
-    let result = fs.readFileSync("./.env", { encoding: "utf8", flag: "r" });
+    let result = fs.readFileSync('./.env', { encoding: 'utf8', flag: 'r' })
 
-    if (key == "HTML_LANGUAGE")
-      result = result.replace(process.env.HTML_LANGUAGE, str);
-    else if (key == "OUTPUT_DIRECTORY")
-      result = result.replace(process.env.OUTPUT_DIRECTORY, str);
-    fs.writeFileSync("./.env", result);
+    if (key === 'HTML_LANGUAGE') {
+      result = result.replace(process.env.HTML_LANGUAGE, str)
+    } else if (key === 'OUTPUT_DIRECTORY') {
+      result = result.replace(process.env.OUTPUT_DIRECTORY, str)
+    }
+    fs.writeFileSync('./.env', result)
 
-    console.log(msg + " " + str);
+    console.log(`${msg} ${str}`)
   },
-};
-
-//Remove repetition when working with .env files
+}
