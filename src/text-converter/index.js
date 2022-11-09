@@ -1,6 +1,6 @@
 const fs = require('fs')
 const txtConverter = require('./txtConverter')
-const mdConverter = require('./mdConverted')
+const { mdConverter } = require('./mdConverted')
 
 module.exports = {
   style: `

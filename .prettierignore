@@ -1,5 +1,5 @@
 /text-files
 /dist
+coverage/
 *.md
 .eslintrc.js
-
