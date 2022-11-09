@@ -4,7 +4,7 @@ const processLine = (line) => {
   let result = line
 
   // Alternative heading
-  result = result.replaceAll(/# (.*) #/g, (match, label) => `<h1>${label}</h1>`)
+  result = result.replaceAll(/# (.*)/g, (match, label) => `<h1>${label}</h1>`)
 
   // italic
   result = result.replaceAll(/_(.*)_/g, (match, label) => `<i>${label}</i>`)
@@ -41,4 +41,4 @@ const mdConverter = (inputFilepath) => {
   }
 }
 
-module.exports = mdConverter
+module.exports = { mdConverter, processLine }

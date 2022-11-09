@@ -17,4 +17,11 @@
 2. Type "npm install" in the command line to download all necessary libraries
 3. Type "npm link" to allow for "my-ssg" to function
 
+## Testing
+
+- Ensure that "npm run test" is run prior to starting with the code to ensure the program is running as intended
+- Test files should be included on the "test" directory under "src"
+- Each test files must include the name of the file followed by "test"
+    - <filename>.<test>.js
+
 The program should now allow you to use all commands without any problems
