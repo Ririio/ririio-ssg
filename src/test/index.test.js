@@ -13,18 +13,53 @@ test('text converter', () => {
   expect(wrongFileExtension).toThrow()
 })
 
-test('create navigation bar', () => {
-  expect(
-    createNavBarDiv(['Silver Blaze.html', 'The Naval Treaty.html'])
-  ).toMatch(/Silver Blaze|The Naval Treaty/i)
+describe('create navigation bar', () => {
+  test('passing array', () => {
+    expect(
+      createNavBarDiv(['Silver Blaze.html', 'The Naval Treaty.html'])
+    ).toMatch(/Silver Blaze|The Naval Treaty/i)
+  })
+
+  test('passing non array', () => {
+    const nonArrayValue = () => {
+      createNavBarDiv('')
+    }
+
+    expect(nonArrayValue).toThrow()
+  })
 })
 
-test('create card', () => {
-  expect(createCard(['Silver Blaze.html', 'The Naval Treaty.html'])).toMatch(
-    /Silver Blaze|The Naval Treaty/i
-  )
+describe('create card', () => {
+  test('passing array', () => {
+    expect(createCard(['Silver Blaze.html', 'The Naval Treaty.html'])).toMatch(
+      /Silver Blaze|The Naval Treaty/i
+    )
+  })
+
+  test('passing non array', () => {
+    const nonArrayValue = () => {
+      createCard('')
+    }
+    expect(nonArrayValue).toThrow()
+  })
 })
 
-test('convert extension', () => {
-  expect(convertExtension('Silver Blaze.txt')).toMatch(/Silver Blaze.html/i)
+describe('convert extension', () => {
+  test('passing string', () => {
+    expect(convertExtension('Silver Blaze.txt')).toMatch(/Silver Blaze.html/i)
+  })
+
+  test('passing numb', () => {
+    const nonStringValue = () => {
+      convertExtension(123)
+    }
+    expect(nonStringValue).toThrow()
+  })
+
+  test('passing array', () => {
+    const nonStringValue = () => {
+      convertExtension(['this', 'a', 'test'])
+    }
+    expect(nonStringValue).toThrow()
+  })
 })
