@@ -51,7 +51,7 @@ describe('convert extension', () => {
 
   test('passing numb', () => {
     const nonStringValue = () => {
-      convertExtension(123)
+      convertExtension('123')
     }
     expect(nonStringValue).toThrow()
   })
