@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mark down converter processed markdown match snapshot 1`] = `
+{
+  "result": "<h1>Hello world!</h1>
+
+<hr>
+
+This text is <i>italic</i> and this is <b>bold</b>
+the <a href="https://google.com">url</a> looks like that
+",
+  "storyTitle": "test.md",
+}
+`;
