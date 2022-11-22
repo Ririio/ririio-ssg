@@ -1,8 +1,13 @@
 # About The Project
 
-The project allows for the converstion of .txt and .md files to a formatted HTML5
+The project allows for the conversion of .txt and .md files to a formatted HTML5
 
 ## Getting Started
+
+1. Open the consolde and install the package by typing `npm install ririio-ssg`
+2. Create a connection between the package and your current project folder by typing `npm link ririio-ssg`
+3. Create a file on your main directory called `.env`, this is used to store value of your output folder and current language
+4. Inside `.env` paste this line of code `OUTPUT_DIRECTORY="dist"` followed by `HTML_LANGUAGE="en-CA"` on the line beneath
 
 ### Commands
 | Command Name  | Command Line | Description | Command Structure | 
